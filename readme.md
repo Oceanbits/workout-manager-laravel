@@ -1,10 +1,10 @@
-## Perform Step after Clone
-
-- ## copy **.env** file from **.env.example**
-    - to setup environment variable
+## Perform following steps after clone
 
 - ## run command: **composer install**
     - to add required autoload file
+
+- ## copy **.env** file from **.env.example**
+    - to setup environment variable
 
 - ## add dataBase in **phpMyAdmin**
     - [Open PhpMyAdmin in Browser](http://localhost/phpmyadmin/).
