@@ -1,6 +1,7 @@
 ## Perform following steps after clone
 
-- ## run command: **composer install**
+- ## install **Composer** with following command 
+    - run command: **composer install**
     - to add required autoload file
 
 - ## copy **.env** file from **.env.example**
