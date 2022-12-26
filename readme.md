@@ -14,8 +14,11 @@
 - ## perform **Migration** to create DataBase Tables
     - run migration command - **php artisan migrate**
 
-- ## initialize **Passport Client** by run following command
-    - run: **php artisan passport:client**
-    - and create passport client
-     
+- ## create **Passport Key** by run following command
+    - run: **php artisan passport:key**
+    - this command will create Key for passport
+    - this command added after notice error while deploy on live server
 
+- ## initialize **Passport Client** by run following command
+    - run: **php artisan passport:client --personal**
+    - and create passport client
