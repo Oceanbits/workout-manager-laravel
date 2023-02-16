@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Constant;
+use Closure;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseModel extends Model
@@ -35,11 +36,44 @@ abstract class BaseModel extends Model
     }
 
     /**
+     * @param $query
+     * @param $reletionMethod
+     * @param Closure|null $callback
+     *
+     * Check below link for more detail
+     * https://stackoverflow.com/a/30232227/14344727
+     * @return
+     */
+    public function scopeFilterWithRelation($query, $reletionMethod, Closure $callback = null)
+    {
+        return $query->whereHas($reletionMethod, $callback);
+    }
+
+    /**
+     * @param $query
+     * @param $reletionMethod
+     * @param Closure|null $callback
+     *
+     * Check below link for more detail
+     * https://stackoverflow.com/a/30232227/14344727
+     *
+     * @return
+     */
+    public function scopeFilterWithRelationOR($query, $reletionMethod, Closure $callback = null)
+    {
+        return $query->orWhereHas($reletionMethod, $callback);
+    }
+
+    /**
      * @param $reletionMethod
      * @param $tableName
      * @param $column
      * @param $searchText
      * this Method perform search $query with given $tableName $reletionMethod on give $column with $searchText
+     *
+     *
+     * Check below link for more detail
+     * https://stackoverflow.com/a/30232227/14344727
      */
     public function scopeSearchWithRelationOR($query, $reletionMethod, $tableName, $column, $searchText)
     {
