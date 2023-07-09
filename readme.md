@@ -29,6 +29,5 @@
     - run: **php artisan passport:client --personal**
     - and create passport client
 
-- ## [Setup multiple **PHP Versions** on **macOS
-  **](https://medium.com/macoclock/how-to-install-multiple-php-versions-on-macos-1f290c32cd63) - Medium Link
+- ## [Setup multiple **PHP Versions** on **macOS**](https://medium.com/macoclock/how-to-install-multiple-php-versions-on-macos-1f290c32cd63) - Medium Link
     - [**StackOverFlow** Answer Link](https://stackoverflow.com/a/70066558)
