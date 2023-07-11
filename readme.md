@@ -7,7 +7,7 @@
 - ## copy **.env** file from **.env.example**
     - 1.Copy .env.example to .env:
     - run command: [**cp -a .env.example .env**]()
-    - 2.Generate a key:
+    - 2.Generate a key: This Generate APP_KEY in .env file
     - run command: [**php artisan key:generate**]()
     - then run command: [**php artisan config:cache**]()
     - 3.Only then run:
