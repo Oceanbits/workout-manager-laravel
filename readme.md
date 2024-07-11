@@ -32,16 +32,23 @@
 - ## [Setup multiple **PHP Versions** on **macOS**](https://medium.com/macoclock/how-to-install-multiple-php-versions-on-macos-1f290c32cd63) - Medium Link
     - [**StackOverFlow** Answer Link](https://stackoverflow.com/a/70066558)
   
+- ## After Install PHP Version
+1. First Unlink Current PHP Version with
+ - run Command: [**brew unlink php@8.2**]()
+    
 
-    After Install PHP Version
-  1. First Unlink Current PHP Version with
-  - run Command: [**brew unlink php@8.2**]()
-  2. Second Link New PHP Version with
+    brew unlink php@8.2
+
+ 2. Second Link New PHP Version with
   - run Command: [**brew link --overwrite --force php@7.2**]()
+    
+    
+    brew link --overwrite --force php@7.2
 
 
-    TimeZones
-  | TimeZone Code          | Description                                    |
+## TimeZones
+ 
+| TimeZone Code          | Description                                    |
   |------------------------|------------------------------------------------|
   | 'Pacific/Midway'       | "(GMT-11:00) Midway Island",                   |
   | 'US/Samoa'             | "(GMT-11:00) Samoa",                           |
