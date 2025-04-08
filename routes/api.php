@@ -3,6 +3,7 @@
 use App\Constants\ControllerMethods;
 use App\Constants\ControllerPaths;
 use App\Constants\EndPoints;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,17 +35,17 @@ Route::group(["middleware" => "auth:api"], function () {
 /**
  * Called When Unauthorised user Access services. Called From Middleware UnauthorisedUser.php -> redirectTo()
  */
-Route::get(EndPoints::unauthorised, ControllerPaths::UserController . ControllerMethods::unauthorised)->name(EndPoints::unauthorised);
+Route::get(EndPoints::unauthorised, [UserController::class, 'unauthorised'])->name(EndPoints::unauthorised);
 
 /**
  * Called When Non Admin user Access Admin's services. Called From Middleware AdminAccess.php -> handle()
  */
-Route::get(EndPoints::adminaccess, ControllerPaths::UserController . ControllerMethods::adminaccess)->name(EndPoints::adminaccess);
+Route::get(EndPoints::adminaccess, [UserController::class, 'adminaccess'])->name(EndPoints::adminaccess);
 
 /**
  * Called When Un-Active user Access Active User services. Called From Middleware ActiveUserAccess.php -> handle()
  */
-Route::get(EndPoints::activeaccess, ControllerPaths::UserController . ControllerMethods::activeaccess)->name(EndPoints::activeaccess);
+Route::get(EndPoints::activeaccess, [UserController::class, 'activeaccess'])->name(EndPoints::activeaccess);
 
 /**
  *  For Email Changes in ".env" File Must Follow below Steps
