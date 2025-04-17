@@ -6,6 +6,7 @@ use App\Traits\Constant;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 
+
 abstract class BaseModel extends Model
 {
     use Constant;

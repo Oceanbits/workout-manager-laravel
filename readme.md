@@ -1,3 +1,30 @@
+## File Structure Of Multi Tenancy 
+
+```
+app/
+├── Models/
+│   ├── User.php
+│   ├── Society.php
+│   ├── TenantAwareModel.php  // abstract model for tenant DB
+│
+├── Http/
+│   ├── Controllers/
+│   │   ├── Api/
+│   │   │   └──UserController.php  // for App User, Who use App.
+│   │   ├── Admin/
+│   │   │   └── AdminController.php // For Admin Who Create Tenant
+│   │   ├── Tenant/
+│   │   │   └── NoticeController.php
+│   │   └── Auth/
+│   ├── Middleware/
+│   │   └── IdentifyTenant.php // switch connection
+│
+database/
+├── migrations/
+│   ├── tenant/
+│   └── 2014_10_12_000000_create_users_table.php
+│
+```
 ## Perform following steps after clone
 
 - ## install **Composer** with following command
@@ -47,8 +74,8 @@
 
 
 ## TimeZones
- 
-| TimeZone Code          | Description                                    |
+
+  | TimeZone Code          | Description                                    |
   |------------------------|------------------------------------------------|
   | 'Pacific/Midway'       | "(GMT-11:00) Midway Island",                   |
   | 'US/Samoa'             | "(GMT-11:00) Samoa",                           |
@@ -162,3 +189,4 @@
   | 'Asia/Magadan'         | "(GMT+12:00) Magadan",                         |
   | 'Pacific/Auckland'     | "(GMT+12:00) Auckland",                        |
   | 'Pacific/Fiji'         | "(GMT+12:00) Fiji",                            |
+  |                                                                         |

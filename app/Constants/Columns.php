@@ -23,6 +23,7 @@ class Columns
     const remember_token = 'remember_token';
     const updated_at = 'updated_at';
     const created_at = 'created_at';
+    const notes = 'notes';
 
 
     /**
@@ -32,6 +33,8 @@ class Columns
     const category_id = 'category_id';
     const product_id = 'product_id';
     const setting_id = 'setting_id';
+    const role_id = 'role_id';
+    const tenant_id = 'tenant_id';
 
 
     /**
@@ -39,6 +42,7 @@ class Columns
      */
     const first_name = 'first_name';
     const last_name = 'last_name';
+    const middle_name = 'middle_name';
     const business_name = 'business_name';
     const email = 'email';
     const phone = 'phone';
@@ -52,6 +56,19 @@ class Columns
      * Tables::PASSWORD_RESET Table Columns
      */
     const token = 'token';
+
+    /**
+     * Tables::TENANTS Table Columns
+     */
+    const db_host = 'db_host';
+    const db_name = 'db_name';
+    const db_user = 'db_user';
+    const db_password = 'db_password';
+
+    /**
+     * Tables::TENANT_INFO Table Columns
+     */
+
 
 
 }

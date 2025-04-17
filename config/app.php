@@ -181,6 +181,10 @@ return [
          * */
         Laravel\Passport\PassportServiceProvider::class,
 
+        /*
+         * Tenancy Service Provider
+         * */
+        Tenancy\Providers\TenancyProvider::class,
     ],
 
     /*

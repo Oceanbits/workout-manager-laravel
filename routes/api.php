@@ -3,6 +3,7 @@
 use App\Constants\ControllerMethods;
 use App\Constants\ControllerPaths;
 use App\Constants\EndPoints;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post(EndPoints::admin_register, [AdminController::class, 'createTenant'])->name(EndPoints::unauthorised);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

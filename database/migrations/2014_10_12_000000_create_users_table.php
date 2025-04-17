@@ -1,5 +1,7 @@
 <?php
 
+use App\Constants\Columns;
+use App\Constants\Tables;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +15,21 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+        Schema::create(Tables::USERS, function (Blueprint $table) {
+            $table->bigIncrements(Columns::id);
+            // $table->string('name');
+            $table->string(Columns::email)->unique();
+            $table->string(Columns::phone)->unique();
+            // $table->timestamp('email_verified_at')->nullable();
+            $table->string(Columns::password);
+            $table->string(Columns::fcm_token)->nullable();
+            $table->string(Columns::first_name)->nullable();
+            $table->string(Columns::middle_name)->nullable();
+            $table->string(Columns::last_name)->nullable();
+            $table->string(Columns::image_url)->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +40,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists(Tables::USERS);
     }
 }
