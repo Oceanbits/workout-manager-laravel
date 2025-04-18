@@ -16,5 +16,6 @@ class Tables
     const TENANTS = 'tenants';
     const TENANT_USER = 'tenant_user';
     const TENANT_INFO = 'tenant_info';
+    const USER_INFO = 'user_info';
 
 }

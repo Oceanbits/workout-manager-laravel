@@ -13,7 +13,13 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        \App\Console\Commands\Tenant\Migration\MigrateTenantMain::class,
+        \App\Console\Commands\Tenant\Migration\Fresh::class,
+        \App\Console\Commands\Tenant\Migration\Install::class,
+        \App\Console\Commands\Tenant\Migration\Refresh::class,
+        \App\Console\Commands\Tenant\Migration\Reset::class,
+        \App\Console\Commands\Tenant\Migration\Rollback::class,
+        \App\Console\Commands\Tenant\Migration\Status::class,
     ];
 
     /**

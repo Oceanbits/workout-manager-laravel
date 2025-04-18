@@ -29,7 +29,7 @@ class IdentifyTenant
                         'driver' => 'mysql',
                         'host' => $tenant->db_host,
                         'database' => $tenant->db_name,
-                        'username' => $tenant->db_user,
+                        'username' => $tenant->db_user_name,
                         'password' => $tenant->db_password,
                         'charset' => 'utf8mb4',
                         'collation' => 'utf8mb4_unicode_ci',

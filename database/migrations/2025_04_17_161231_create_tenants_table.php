@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string(Columns::notes)->nullable();
             $table->string(Columns::db_host);
             $table->string(Columns::db_name)->unique();
-            $table->string(Columns::db_user);
+            $table->string(Columns::db_user_name);
             $table->string(Columns::db_password)->default('');
             $table->timestamps();
             $table->softDeletes();

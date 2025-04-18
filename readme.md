@@ -22,9 +22,79 @@ app/
 database/
 ├── migrations/
 │   ├── tenant/
+│       ├── 2025_04_17_194723_create_tenant_info_table.php
+│       └── 2025_04_18_184318_create_user_info_table.php
 │   └── 2014_10_12_000000_create_users_table.php
 │
 ```
+
+## Tenant Migration Tips
+- **Always Use Schema::connection('tenant'):**
+    - This ensures the migration runs on the tenant database, not the landlord’s.
+- **Use the Same Migration Folder for All Tenants:**
+    - Store tenant migrations in a dedicated folder like:
+        database/migrations/tenant.
+        
+## Example Migration for Tenants:
+```
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::connection('tenant')->create('user_info', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('full_name');
+            $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::connection('tenant')->dropIfExists('user_info');
+    }
+};
+```
+
+
+## Tenant Migration Command Structure
+
+```
+app/
+└── Console/
+    └── Commands/
+        └── Tenant/
+            ├── BaseTenantCommand.php
+            ├── Fresh.php
+            ├── Install.php
+            ├── Refresh.php
+            ├── Reset.php
+            ├── Rollback.php
+            └── Status.php
+
+```
+
+## Tenant Migration Command List
+
+```
+php artisan migrateTenant:fresh
+
+php artisan migrateTenant:install
+
+php artisan migrateTenant:refresh
+
+php artisan migrateTenant:reset
+
+php artisan migrateTenant:rollback --step=2
+
+php artisan migrateTenant:status
+```
+
 ## Perform following steps after clone
 
 - ## install **Composer** with following command

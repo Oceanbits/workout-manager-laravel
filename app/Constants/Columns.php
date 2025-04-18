@@ -62,7 +62,7 @@ class Columns
      */
     const db_host = 'db_host';
     const db_name = 'db_name';
-    const db_user = 'db_user';
+    const db_user_name = 'db_user_name';
     const db_password = 'db_password';
 
     /**

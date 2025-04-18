@@ -18,7 +18,7 @@ class AdminController extends BaseController
     {
         $name = $request->input('name');
         $random = rand(1000, 9999); // Generates a 4-digit random number
-        $dbName = 'tenant_' . strtolower($name) . '_' . $random;
+        $dbName = env('DB_DATABASE') . '_' . str_replace(" ", "_", strtolower($name)) . '_' . $random;
 
         // Create DB
         \DB::statement("CREATE DATABASE `$dbName`");
@@ -27,7 +27,7 @@ class AdminController extends BaseController
             Columns::name => $name,
             Columns::db_name => $dbName,
             Columns::db_host => env('DB_HOST', '127.0.0.1'),
-            Columns::db_user => env('DB_USERNAME'),
+            Columns::db_user_name => env('DB_USERNAME'),
             Columns::db_password => env('DB_PASSWORD'),
         ]);
 
@@ -54,7 +54,7 @@ class AdminController extends BaseController
             'host' => $tenant->db_host ?? env('DB_HOST', '127.0.0.1'),
             'port' => $tenant->db_port ?? env('DB_PORT', '3306'),
             'database' => $tenant->db_name,
-            'username' => $tenant->db_user,
+            'username' => $tenant->db_user_name,
             'password' => $tenant->db_password,
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
