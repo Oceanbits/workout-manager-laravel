@@ -22,8 +22,8 @@ app/
 database/
 ├── migrations/
 │   ├── tenant/
-│       ├── 2025_04_17_194723_create_tenant_info_table.php
-│       └── 2025_04_18_184318_create_user_info_table.php
+│   │   ├── 2025_04_17_194723_create_tenant_info_table.php
+│   │   └── 2025_04_18_184318_create_user_info_table.php
 │   └── 2014_10_12_000000_create_users_table.php
 │
 ```
