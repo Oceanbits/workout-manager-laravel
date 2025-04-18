@@ -34,7 +34,7 @@ database/
 - **Use the Same Migration Folder for All Tenants:**
     - Store tenant migrations in a dedicated folder like:
         database/migrations/tenant.
-        
+
 ## Example Migration for Tenants:
 ```
 use Illuminate\Database\Migrations\Migration;
@@ -69,14 +69,15 @@ app/
 └── Console/
     └── Commands/
         └── Tenant/
-            ├── BaseTenantCommand.php
-            ├── Fresh.php
-            ├── Install.php
-            ├── Refresh.php
-            ├── Reset.php
-            ├── Rollback.php
-            └── Status.php
-
+            └── Migration/
+                ├── BaseTenantCommand.php
+                ├── MigrateTenantMain.php.php
+                ├── Fresh.php
+                ├── Install.php
+                ├── Refresh.php
+                ├── Reset.php
+                ├── Rollback.php
+                └── Status.php
 ```
 
 ## Tenant Migration Command List
