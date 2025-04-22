@@ -4,7 +4,9 @@ namespace App;
 
 use App\Constants\Columns;
 use App\Constants\Tables;
+use App\Models\MasterUserRole;
 use App\Models\Tenant;
+use App\Models\Tenant\AuthUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -20,7 +22,10 @@ class User extends BaseAuthenticatableModel
      * @var array
      */
     protected $fillable = [
-        Columns::name,
+        Columns::first_name,
+        Columns::last_name,
+        Columns::middle_name,
+        Columns::image_url,
         Columns::email,
         Columns::password,
         Columns::phone,
@@ -33,6 +38,7 @@ class User extends BaseAuthenticatableModel
      * @var array
      */
     protected $hidden = [
+        Columns::pivot,
         Columns::password,
         Columns::remember_token,
     ];
@@ -47,13 +53,37 @@ class User extends BaseAuthenticatableModel
     ];
 
 
+
     /**
      * Realtions
      */
     public function tenants()
     {
-        return $this->belongsToMany(related: Tenant::class, table: Tables::TENANT_USER, foreignPivotKey: Columns::user_id, relatedPivotKey: Columns::tenant_id)
+        return $this->belongsToMany(
+            related: Tenant::class,
+            table: Tables::TENANT_USER,
+            foreignPivotKey: Columns::user_id,
+            relatedPivotKey: Columns::tenant_id
+        )
             // ->withTimestamps()
+        ;
+    }
+    public function adminInTenants()
+    {
+        return $this->belongsToMany(
+            related: Tenant::class,
+            table: Tables::TENANT_USER,
+            foreignPivotKey: Columns::user_id,
+            relatedPivotKey: Columns::tenant_id
+        )
+            ->withPivot(Columns::role_id)
+            ->wherePivot(Columns::role_id, function ($query) {
+                $query->select(Columns::id)
+                    ->from(Tables::MASTER_USER_ROLES)
+                    ->where(Columns::name, MasterUserRole::ROLE_ADMIN)
+                    ->limit(1);
+            });
+        // ->withTimestamps()
         ;
     }
 }

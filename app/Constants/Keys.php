@@ -17,4 +17,5 @@ class Keys
     const USER = 'user';
     const ADMIN = 'admin';
     const EMAIL = 'email';
+    const TENANT = 'tenant';
 }

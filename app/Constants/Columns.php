@@ -15,6 +15,7 @@ class Columns
     const image_url = 'image_url';
     const record_deleted = 'record_deleted';
     const name = 'name';
+    const display_name = 'display_name';
     const is_active = 'is_active';
     const value = 'value';
     const old_password = "old_password";
@@ -24,6 +25,7 @@ class Columns
     const updated_at = 'updated_at';
     const created_at = 'created_at';
     const notes = 'notes';
+    const pivot = 'pivot';
 
 
     /**
@@ -35,6 +37,8 @@ class Columns
     const setting_id = 'setting_id';
     const role_id = 'role_id';
     const tenant_id = 'tenant_id';
+    const tenant_admin_user_id = 'tenant_admin_user_id';
+    const tenant_admin_auth_user_id = 'tenant_admin_auth_user_id';
 
 
     /**
@@ -50,6 +54,7 @@ class Columns
     const password = 'password';
     const fcm_token = 'fcm_token';
     const is_admin = 'is_admin';
+    const deleted_at = 'deleted_at';
 
 
     /**
@@ -64,6 +69,8 @@ class Columns
     const db_name = 'db_name';
     const db_user_name = 'db_user_name';
     const db_password = 'db_password';
+    const tenant_admin_email = 'tenant_admin_email';
+    const tenant_admin_password = 'tenant_admin_password';
 
     /**
      * Tables::TENANT_INFO Table Columns

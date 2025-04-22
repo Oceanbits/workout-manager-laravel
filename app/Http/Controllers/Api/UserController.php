@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Constants\Columns;
 use App\Constants\Keys;
+use App\Constants\Relationships;
 use App\Constants\ResponseCodes;
 use App\Constants\Tables;
 use App\Http\Controllers\BaseController;
@@ -48,6 +49,7 @@ class UserController extends BaseController
 
         $token = $user->createToken('UserAccessToken')->accessToken;
 
+        // $user->load([Relationships::adminInTenants, Relationships::tenants]);
         $data = [];
         $data[KEYS::USER] = $user;
         $data[KEYS::TOKEN] = $token;
@@ -68,6 +70,7 @@ class UserController extends BaseController
 
         $token = $user->createToken('UserAccessToken')->accessToken;
 
+        $user->load([Relationships::adminInTenants, Relationships::tenants]);
         $data = [];
         $data[KEYS::USER] = $user;
         $data[KEYS::TOKEN] = $token;

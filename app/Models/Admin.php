@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\BaseAuthenticatableModel;
 use App\BaseModel;
+use App\Constants\Columns;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,15 +23,15 @@ class Admin extends BaseAuthenticatableModel
     protected $guarded = [];
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role_id',
+        Columns::name,
+        Columns::email,
+        Columns::password,
+        Columns::role_id,
     ];
 
 
     protected $hidden = [
-        'password',
-        'remember_token',
+        Columns::password,
+        Columns::remember_token,
     ];
 }

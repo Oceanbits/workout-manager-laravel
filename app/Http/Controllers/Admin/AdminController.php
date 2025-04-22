@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Columns;
 use App\Constants\Keys;
+use App\Constants\Relationships;
 use App\Http\Controllers\BaseController;
 use App\Models\Admin;
+use App\Models\MasterUserRole;
 use App\Models\Tenant;
-use App\Models\TenantInfo;
+use App\Models\Tenant\AuthUser;
+use App\Models\Tenant\TenantInfo;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Artisan;
@@ -74,12 +78,33 @@ class AdminController extends BaseController
 
     public function createTenant(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'admin_email' => 'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendValidationError($validator->errors());
+        }
+
         $name = $request->input('name');
         $random = rand(1000, 9999); // Generates a 4-digit random number
         $dbName = env('DB_DATABASE') . '_' . str_replace(" ", "_", strtolower($name)) . '_' . $random;
 
         // Create DB
         \DB::statement("CREATE DATABASE `$dbName`");
+
+        $user = User::where('email', $request->input('admin_email'))->first();
+        if (!$user) {
+            // return $this->sendFailResultWithCode(404, 'User not found');
+            // create New User.
+            $user = User::create([
+                Columns::email => $request->input('admin_email'),
+                Columns::password => Hash::make($request->input('password')),
+            ]);
+        }
 
         $tenant = Tenant::create([
             Columns::name => $name,
@@ -89,16 +114,37 @@ class AdminController extends BaseController
             Columns::db_password => env('DB_PASSWORD'),
         ]);
 
+        $adminRoleId = MasterUserRole::where(Columns::name, MasterUserRole::ROLE_ADMIN)
+            ->value(Columns::id)
+        ;
+
+        // dd($adminRoleId);
+
+        $tenant->users()->attach($user->id, [
+            Columns::status => 1,
+            Columns::role_id => $adminRoleId,
+        ]);
+
         $this->runTenantMigrations($tenant);
 
-        // add extra column in tabel according to your requirement
-        $tenant = TenantInfo::create([
+        // Create Entry for TenantInfo in Tenant DB
+        TenantInfo::create([
             Columns::name => $name,
             Columns::tenant_id => $tenant->id,
         ]);
 
+        // Create Entry for AuthUser in Tenant DB
+        AuthUser::create([
+            Columns::user_id => $user->id,
+        ]);
+
+        $tenant->load([/* Relationships::users, */ Relationships::adminUsers]);
+        // $data = [];
+        // $data[KEYS::TENANT] = $tenant;
+        // $this->addSuccessResultKeyValue(Keys::DATA, $data);
+        $this->addSuccessResultKeyValue(Keys::DATA, $tenant);
         $this->setSuccessMessage("Tenant created successfully");
-        return $this->sendSuccessResult();
+        return $this->sendSuccessResult(code: 201);
     }
 
     public function runTenantMigrations($tenant)

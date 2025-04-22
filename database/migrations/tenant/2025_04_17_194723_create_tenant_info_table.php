@@ -16,6 +16,11 @@ return new class extends Migration {
             $table->bigIncrements(Columns::id);
             $table->string(Columns::name);
             $table->unsignedBigInteger(Columns::tenant_id);
+            $table->unsignedBigInteger(Columns::tenant_admin_user_id)->index()->nullable();
+
+            $table->unsignedBigInteger(Columns::tenant_admin_auth_user_id)->index()->nullable();
+            $table->foreign(Columns::tenant_admin_auth_user_id)->references(Columns::id)->on(Tables::AUTH_USERS)->onDelete('cascade');
+
             $table->timestamps();
         });
     }

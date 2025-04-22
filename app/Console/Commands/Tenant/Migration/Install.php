@@ -9,7 +9,7 @@ class Install extends BaseTenantCommand
 
     public function handle()
     {
-        $this->runLandlordCommand('migrate:install', ['--force' => true]);
-        $this->runTenantCommand('migrate:install', ['--force' => true]);
+        $this->runLandlordCommand('migrate:install', /* ['--force' => true] */);
+        $this->runTenantCommand('migrate:install', /* ['--force' => true] */);
     }
 }
