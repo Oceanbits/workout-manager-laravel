@@ -110,6 +110,7 @@ class AdminController extends BaseController
             Columns::name => $name,
             Columns::db_name => $dbName,
             Columns::db_host => env('DB_HOST', '127.0.0.1'),
+            Columns::db_port => env('DB_PORT', '3306'),
             Columns::db_user_name => env('DB_USERNAME'),
             Columns::db_password => env('DB_PASSWORD'),
         ]);

@@ -49,6 +49,7 @@ class Columns
     const middle_name = 'middle_name';
     const business_name = 'business_name';
     const email = 'email';
+    const admin_email = 'admin_email';
     const phone = 'phone';
     const email_verified_at = 'email_verified_at';
     const password = 'password';
@@ -66,6 +67,7 @@ class Columns
      * Tables::TENANTS Table Columns
      */
     const db_host = 'db_host';
+    const db_port = 'db_port';
     const db_name = 'db_name';
     const db_user_name = 'db_user_name';
     const db_password = 'db_password';
