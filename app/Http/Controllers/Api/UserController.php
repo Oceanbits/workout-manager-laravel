@@ -8,6 +8,9 @@ use App\Constants\Relationships;
 use App\Constants\ResponseCodes;
 use App\Constants\Tables;
 use App\Http\Controllers\BaseController;
+use App\Models\MasterUserRole;
+use App\Models\Tenant;
+use App\Models\Tenant\AuthUser;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -49,6 +52,20 @@ class UserController extends BaseController
 
         $token = $user->createToken('UserAccessToken')->accessToken;
 
+        // Create Entry for AuthUser in Tenant DB
+        AuthUser::create([
+            Columns::user_id => $user->id,
+        ]);
+
+        $tenantId = $request->header(Keys::HEADER_TENANT_ID);
+        $userRoleId = MasterUserRole::where(Columns::name, MasterUserRole::ROLE_USER)
+            ->value(Columns::id);
+
+        $user->tenants()->attach($tenantId, [
+                // Columns::status => 1,
+            Columns::role_id => $userRoleId,
+        ]);
+
         // $user->load([Relationships::adminInTenants, Relationships::tenants]);
         $data = [];
         $data[KEYS::USER] = $user;
@@ -70,9 +87,11 @@ class UserController extends BaseController
 
         $token = $user->createToken('UserAccessToken')->accessToken;
 
+        $authUser = AuthUser::where(Columns::user_id, $user->id)->first();
         $user->load([Relationships::adminInTenants, Relationships::tenants]);
         $data = [];
         $data[KEYS::USER] = $user;
+        $data[KEYS::AUTH_USER] = $authUser;
         $data[KEYS::TOKEN] = $token;
         $this->addSuccessResultKeyValue(Keys::DATA, $data);
         $this->setSuccessMessage('Login successfully.');
@@ -82,7 +101,49 @@ class UserController extends BaseController
     public function profile(Request $request)
     {
         $user = auth()->user();
-        $this->addSuccessResultKeyValue(Keys::DATA, $user);
+        $authUser = AuthUser::where(Columns::user_id, $user->id)->first();
+        $data = [];
+        $data[KEYS::USER] = $user;
+        $data[KEYS::AUTH_USER] = $authUser;
+        $this->addSuccessResultKeyValue(Keys::DATA, $data);
+        return $this->sendSuccessResult();
+    }
+
+    public function switchTenant(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            Columns::tenant_id => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendValidationError($validator->errors());
+            // return response()->json($validator->errors(), 422);
+        }
+        $tenantId = request()->input(Columns::tenant_id);
+        $tenant = Tenant::find($tenantId);
+        if ($tenant) {
+            config([
+                'database.connections.tenant' => [
+                    'driver' => 'mysql',
+                    'host' => $tenant->db_host,
+                    'database' => $tenant->db_name,
+                    'username' => $tenant->db_user_name,
+                    'password' => $tenant->db_password,
+                    'charset' => 'utf8mb4',
+                    'collation' => 'utf8mb4_unicode_ci',
+                ]
+            ]);
+        } else {
+            $this->addFailResultKeyValue(Keys::ERROR, 'Tenant not found');
+            return $this->sendFailResultWithCode(ResponseCodes::FAIL);
+        }
+        $user = auth()->user();
+        $authUser = AuthUser::where(Columns::user_id, $user->id)->first();
+        $data = [];
+        $data[KEYS::AUTH_USER] = $authUser;
+        $this->addSuccessResultKeyValue(Keys::DATA, $data);
+        $this->setSuccessMessage('Tenant switched successfully.');
         return $this->sendSuccessResult();
     }
 
@@ -100,7 +161,7 @@ class UserController extends BaseController
      */
     function adminaccess()
     {
-        $this->addFailResultKeyValue(Keys::ERROR, 'Service Allow only for Admin . ');
+        $this->addFailResultKeyValue(Keys::ERROR, 'Service allow only for Admin.');
         return $this->sendFailResultWithCode(ResponseCodes::UNAUTHORIZED_USER);
     }
 

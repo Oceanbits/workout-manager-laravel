@@ -18,10 +18,10 @@ return new class extends Migration {
             $table->string(Columns::email)->unique();
             $table->string(Columns::phone)->unique();
             $table->string(Columns::password);
+            $table->unsignedBigInteger(Columns::role_id)->index();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger(Columns::role_id)->index();
 
             // Foreign key constraint
             $table->foreign(Columns::role_id)

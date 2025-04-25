@@ -53,6 +53,7 @@ Route::prefix('user')->group(function () {
 
     Route::group(["middleware" => "auth:user-api"], function () {
         Route::get(EndPoints::profile, [UserController::class, 'profile']);
+        Route::post(EndPoints::switch_tenant, [UserController::class, 'switchTenant']);
     });
 
 });

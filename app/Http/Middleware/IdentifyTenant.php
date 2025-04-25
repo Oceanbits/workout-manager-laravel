@@ -2,12 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Constants\Keys;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use App\Models\Tenant;
-use Tenancy\Facades\Tenancy;
+// use Tenancy\Facades\Tenancy;
 
 class IdentifyTenant
 {
@@ -19,7 +20,7 @@ class IdentifyTenant
     public function handle(Request $request, Closure $next): Response
     {
         // You can use header or session or subdomain
-        $tenantId = $request->header('X-TENANT-ID');
+        $tenantId = $request->header(Keys::HEADER_TENANT_ID);
 
         if ($tenantId) {
             $tenant = Tenant::find($tenantId);
@@ -37,10 +38,10 @@ class IdentifyTenant
                 ]);
 
                 // Set default connection to tenant
-                \DB::setDefaultConnection('tenant');
+                // \DB::setDefaultConnection('tenant');
 
                 // OPTIONAL: bootstrap tenancy package (model events, etc.)
-                Tenancy::initialize($tenant);
+                // Tenancy::initialize($tenant);
             }
         }
 

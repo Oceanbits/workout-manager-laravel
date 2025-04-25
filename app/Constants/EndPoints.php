@@ -52,6 +52,7 @@ class EndPoints
     const user_activeUsers = '/user/activeUsers';
     const user_newUsers = '/user/newUsers';
     const user_blockUsers = '/user/blockUsers';
+    const switch_tenant = '/user/switchTenant';
 
 
     /**

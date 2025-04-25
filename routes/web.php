@@ -15,8 +15,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use Tenancy\Facades\Tenancy;
-Route::get('/check-tenant', function () {
-    $tenant = Tenancy::getTenant();
-    return $tenant ? $tenant->only(['id', 'name', 'domain']) : 'No tenant identified';
-});
