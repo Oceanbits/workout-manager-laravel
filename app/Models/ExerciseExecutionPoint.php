@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ExerciseExecutionPoint extends Model
 {
     use HasFactory;
-    use HasFactory, SoftDeletes;
 
     protected $table = Tables::EXERCISE_EXECUTION_POINTS;
     protected $guarded = [];

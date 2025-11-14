@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FocusArea extends Model
 {
     use HasFactory;
-    use HasFactory, SoftDeletes;
 
     protected $table = Tables::FOCUS_AREAS;
     protected $guarded = [];

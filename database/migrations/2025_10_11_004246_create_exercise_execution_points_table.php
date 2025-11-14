@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer(Columns::index)->nullable();
             $table->foreignId(Columns::exercise_id)->constrained(Tables::EXERCISES)->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ExerciseKeyTip extends Model
 {
     use HasFactory;
-    use HasFactory, SoftDeletes;
 
     protected $table = Tables::EXERCISE_KEY_TIPS;
     protected $guarded = [];

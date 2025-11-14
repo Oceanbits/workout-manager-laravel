@@ -5,7 +5,7 @@ namespace App\Traits;
 trait Constant
 {
     public $successCode = 200;
-    public $failCode = 200;
+    public $failCode = 400;
 
     /*
      * Images Paths

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ExerciseFocusArea extends Model
 {
     use HasFactory;
-    use HasFactory, SoftDeletes;
 
     protected $table = Tables::EXERCISE_FOCUS_AREAS;
     protected $guarded = [];

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Exercise extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = Tables::EXERCISES;
     protected $guarded = [];

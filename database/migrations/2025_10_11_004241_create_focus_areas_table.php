@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string(Columns::name);
             $table->string(Columns::display_name);
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

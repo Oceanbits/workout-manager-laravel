@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string(Columns::female_video_path)->nullable();
             $table->text(Columns::preparation_text)->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

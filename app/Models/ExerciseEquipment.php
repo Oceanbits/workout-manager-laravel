@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ExerciseEquipment extends Model
 {
     use HasFactory;
-    use HasFactory, SoftDeletes;
 
     protected $table = Tables::EXERCISE_EQUIPMENTS;
     protected $guarded = [];
