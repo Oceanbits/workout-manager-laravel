@@ -141,3 +141,4 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 /.vscode/settings.json
+/.idea/
