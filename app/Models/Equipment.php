@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Equipment extends Model
 {
-    
     use HasFactory;
-
     protected $table = Tables::EQUIPMENTS;
     protected $guarded = [];
 }
